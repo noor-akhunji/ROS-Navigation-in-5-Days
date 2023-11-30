@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<launch>
+
+  <include file="$(find navigation_exam)/launch/localization.launch"/>
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+
+    <rosparam file="$(find navigation_exam)/params/move_base_params.yaml" command="load"/>
+
+    <!-- observation sources located in costmap_common.yaml -->
+    <rosparam file="$(find navigation_exam)/params/costmap_common.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find navigation_exam)/params/costmap_common.yaml" command="load" ns="local_costmap" />
+
+    <!-- local costmap, needs size -->
+    <rosparam file="$(find navigation_exam)/params/costmap_local.yaml" command="load" ns="local_costmap" />
+    <param name="local_costmap/width" value="10.0"/>
+    <param name="local_costmap/height" value="10.0"/>
+
+    <!-- static global costmap, static map provides size -->
+    <rosparam file="$(find navigation_exam)/params/costmap_global.yaml" command="load" ns="global_costmap"/>
+
+    <rosparam file="$(find navigation_exam)/params/local_planner.yaml" command="load" />
+    <rosparam file="$(find navigation_exam)/params/global_planner.yaml" command="load" />
+  </node>
+
+</launch>

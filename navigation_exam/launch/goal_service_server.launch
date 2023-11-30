@@ -1,0 +1,6 @@
+<launch>
+    <include file="$(find navigation_exam)/launch/path_planning.launch"/>
+
+    <node pkg="navigation_exam" name="goals_service_server" type="goal_service_server.py" output="screen"/>
+    
+</launch>

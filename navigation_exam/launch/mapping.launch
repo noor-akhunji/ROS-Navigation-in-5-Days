@@ -1,0 +1,37 @@
+<launch>
+    <arg name="scan_topic"  default="/scan" />
+    <arg name="base_frame"  default="base_link"/>
+    <arg name="odom_frame"  default="odom"/>
+
+    <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+        <!-- Loading config from YAML file instead -->
+        <rosparam file="$(find navigation_exam)/params/mapping.yaml" command="load"/>
+        
+    <!--    
+        maxRange (float): Sets the maximum range of the laser. Set this value to something slightly higher than the real sensor's maximum range.
+        maxUrange (default: 80.0): Sets the maximum usable range of the laser. The laser beams will be cropped to this value.
+        minimumScore (default: 0.0): Sets the minimum score to consider a laser reading good. 
+    -->
+
+        <param name="sigma" value="0.05"/>
+        <param name="kernelSize" value="1"/>
+        <param name="lstep" value="0.05"/>
+        <param name="astep" value="0.05"/>
+        <param name="iterations" value="5"/>
+        <param name="lsigma" value="0.075"/>
+        <param name="ogain" value="3.0"/>
+        <param name="lskip" value="0"/>
+        
+        <param name="srr" value="0.01"/>
+        <param name="srt" value="0.02"/>
+        <param name="str" value="0.01"/>
+        <param name="stt" value="0.02"/>
+
+        <param name="delta" value="0.05"/>
+        <param name="llsamplerange" value="0.01"/>
+        <param name="llsamplestep" value="0.01"/>
+        <param name="lasamplerange" value="0.005"/>
+        <param name="lasamplestep" value="0.005"/>
+        <remap from="scan" to="$(arg scan_topic)"/>
+    </node>
+</launch>

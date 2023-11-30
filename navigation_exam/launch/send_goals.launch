@@ -1,0 +1,6 @@
+<launch>
+    <include file="$(find navigation_exam)/launch/path_planning.launch"/>
+
+    <node pkg="navigation_exam" name="husky_send_goals" type="send_goals.py" output="screen"/>
+    
+</launch>
